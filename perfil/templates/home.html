@@ -14,11 +14,11 @@
         <br>
         <div class="row">
             <div class="col-md-3">
-                <a style="text-decoration: none; color:white;" href="#">
+                <a style="text-decoration: none; color:white;" href="{% url 'novo_valor' %}">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-8">
-                                <span  class="fonte-destaque">RS 2000</span>
+                                <span  class="fonte-destaque">RS {{total_entrada}}</span>
                             </div>
                             <div class="col-md">
                                 <img class="icone-setas" src="{% static 'perfil/img/entradas.png' %}">
@@ -29,11 +29,11 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <a style="text-decoration: none; color:white;" href="#">
+                <a style="text-decoration: none; color:white;" href="{% url 'novo_valor' %}">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-8">
-                                <span  class="fonte-destaque">RS 3000</span>
+                                <span  class="fonte-destaque">RS {{total_saida}}</span>
                             </div>
                             <div class="col-md">
                                 <img class="icone-setas" src="{% static 'perfil/img/exit.png' %}">

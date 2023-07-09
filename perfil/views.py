@@ -9,11 +9,17 @@ from extrato.models import Valores
 
 # Create your views here.
 def home(request):
+    valores = Valores.objects.filter(data__month=datetime.now().month)
+    entrada = valores.filter(tipo='E')
+    saida = valores.filter(tipo='S')
+    
+    total_entrada = calcula_total(entrada, 'valor')
+    total_saida = calcula_total(saida, 'valor')
     
     contas = Conta.objects.all()
     total_conta = calcula_total(contas, 'valor')
 
-    return render(request, 'home.html', {'contas':contas, 'total_conta':total_conta})
+    return render(request, 'home.html', {'total_entrada':total_entrada, 'total_saida':total_saida, 'contas':contas, 'total_conta':total_conta})
 
 def gerenciar(request):
     contas = Conta.objects.all()
