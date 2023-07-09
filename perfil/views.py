@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.messages import constants
 from .utils import calcula_total
 from datetime import datetime
+from extrato.models import Valores
 
 # Create your views here.
 def home(request):
