@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Conta, Categoria
 from django.contrib import messages
 from django.contrib.messages import constants
-from .utils import calcula_total
+from .utils import calcula_total, calcula_equilibrio_financeiro
 from datetime import datetime
 from extrato.models import Valores
 
@@ -18,8 +18,10 @@ def home(request):
     
     contas = Conta.objects.all()
     total_conta = calcula_total(contas, 'valor')
-
-    return render(request, 'home.html', {'total_entrada':total_entrada, 'total_saida':total_saida, 'contas':contas, 'total_conta':total_conta})
+    
+    percentual_gastos_essenciais, percentual_gastos_nao_essenciais = calcula_equilibrio_financeiro()
+    
+    return render(request, 'home.html', {'percentual_gastos_essenciais':int(percentual_gastos_essenciais), 'percentual_gastos_nao_essenciais':int(percentual_gastos_nao_essenciais), 'total_entrada':total_entrada, 'total_saida':total_saida, 'contas':contas, 'total_conta':total_conta})
 
 def gerenciar(request):
     contas = Conta.objects.all()
