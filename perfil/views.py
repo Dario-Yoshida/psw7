@@ -15,13 +15,16 @@ def home(request):
     
     total_entrada = calcula_total(entrada, 'valor')
     total_saida = calcula_total(saida, 'valor')
-    
+    saldo_mes = total_entrada - total_saida
     contas = Conta.objects.all()
     total_conta = calcula_total(contas, 'valor')
-    
+
+    vencidas = request.session.get('vencidas')
+    proximas = request.session.get('proximas')
+
     percentual_gastos_essenciais, percentual_gastos_nao_essenciais = calcula_equilibrio_financeiro()
     
-    return render(request, 'home.html', {'percentual_gastos_essenciais':int(percentual_gastos_essenciais), 'percentual_gastos_nao_essenciais':int(percentual_gastos_nao_essenciais), 'total_entrada':total_entrada, 'total_saida':total_saida, 'contas':contas, 'total_conta':total_conta})
+    return render(request, 'home.html', {'proximas':proximas, 'vencidas':vencidas, 'saldo_mes':saldo_mes, 'percentual_gastos_essenciais':int(percentual_gastos_essenciais), 'percentual_gastos_nao_essenciais':int(percentual_gastos_nao_essenciais), 'total_entrada':total_entrada, 'total_saida':total_saida, 'contas':contas, 'total_conta':total_conta})
 
 def gerenciar(request):
     contas = Conta.objects.all()

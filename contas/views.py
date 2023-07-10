@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.messages import constants
 from datetime import datetime
 
+
 # Create your views here.
 def definir_contas(request):
     if request.method == "GET":
@@ -43,9 +44,11 @@ def ver_contas(request):
 
     contas_vencidas = contas.filter(dia_pagamento__lt=DIA_ATUAL).exclude(id__in=contas_pagas)
     vencidas = len(contas_vencidas)
+    request.session['vencidas'] = vencidas
 
     contas_proximas_vencimento = contas.filter(dia_pagamento__lte = DIA_ATUAL + 5).filter(dia_pagamento__gte=DIA_ATUAL).exclude(id__in=contas_pagas)
     proximas = len(contas_proximas_vencimento)
+    request.session['proximas'] = proximas
 
     restantes = contas.exclude(id__in=contas_vencidas).exclude(id__in=contas_pagas).exclude(id__in=contas_proximas_vencimento)
     contas_restantes =len(restantes)
